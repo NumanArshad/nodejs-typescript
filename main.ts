@@ -482,3 +482,12 @@ let typescript_info={
 }
 let superset:number=getProperty(typescript_info,'difficulty')
 console.log(superset)
+
+class Programmer_1{
+    constructor(public fname:string,public lname:string){
+
+    }
+}
+function logProgrammer<T extends Programmer_1>(prog:T):void{
+    console.log(`programmer name is ${this.fname}`)
+}

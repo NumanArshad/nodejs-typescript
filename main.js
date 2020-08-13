@@ -317,3 +317,13 @@ var typescript_info = {
 };
 var superset = getProperty(typescript_info, 'difficulty');
 console.log(superset);
+var Programmer_1 = /** @class */ (function () {
+    function Programmer_1(fname, lname) {
+        this.fname = fname;
+        this.lname = lname;
+    }
+    return Programmer_1;
+}());
+function logProgrammer(prog) {
+    console.log("programmer name is " + this.fname);
+}
