@@ -230,66 +230,90 @@ function printLabel(labeledObj) {
 }
 var myObj = { size: 10, label: "Size 10 Object" };
 printLabel(myObj);
+// function createSquare(config: squareConfig): { color: string, width: number } {
+//     let newSquare = { color: 'white', width: 25 }
+//     newSquare.color = config.color ?? newSquare.color
+//     newSquare.width = config.width ?? newSquare.width
+//     return newSquare
+// }
 function createSquare(config) {
-    var _a, _b;
-    var newSquare = { color: 'white', width: 25 };
-    newSquare.color = (_a = config.color) !== null && _a !== void 0 ? _a : newSquare.color;
-    newSquare.width = (_b = config.width) !== null && _b !== void 0 ? _b : newSquare.width;
-    return newSquare;
+    return { color: config.color || "red", area: config.width || 20 };
 }
-var square = createSquare({ color: 'black' });
+var square = createSquare({ colour: 'black' });
 console.log(square);
-function buildName(firstname) {
-    var restname = [];
-    for (var _i = 1; _i < arguments.length; _i++) {
-        restname[_i - 1] = arguments[_i];
-    }
-    return firstname + " " + restname.join(",");
-}
-console.log(buildName("Muhammad", "Numan", "Arshad"));
-var build = buildName;
-console.log(build("Muhammad", "Numan", "Arshad"));
-var myAdd = function (x, y) {
-    return x + y;
+var user = {
+    name: "numan",
+    age: 22
 };
-//let anotherBuild:(firstname:string,...rst:string[])=>string=firstname
-console.log(myAdd(2, 5));
-function networkStates(stat) {
-    var _a;
-    switch (stat.state) {
-        case "loading":
-            return "Downloading";
-        case "failed":
-            console.log((_a = stat.code) !== null && _a !== void 0 ? _a : "notpassed");
-            return "failed fetch response";
-        case "success":
-            return "fetch success";
-    }
-}
-console.log(networkStates({ state: "failed", code: 46 }));
-var handleArtistResponse = function (response) {
-    if (response.errro) {
-        console.log(response.errro.message);
-        return;
-    }
-    console.log(response.artist);
+var admin = {
+    name: "numan",
+    age: 22,
+    isAdmin: true
 };
-handleArtistResponse({ errro: { message: "good" }, artist: [{ name: "fsmkk" }, { name: "fksnfkns" }] });
-///////enum////////
-var LogLevel;
-(function (LogLevel) {
-    LogLevel[LogLevel["ERROR"] = 0] = "ERROR";
-    LogLevel[LogLevel["WARN"] = 1] = "WARN";
-    LogLevel[LogLevel["LOG"] = 2] = "LOG";
-    LogLevel[LogLevel["DEBUG"] = 3] = "DEBUG";
-})(LogLevel || (LogLevel = {}));
-//type LogLevel2=keyof typeof LogLevel
-function printLogs(customLog, message) {
-    console.log("hahahha" + LogLevel[customLog]);
-    var num = LogLevel[customLog];
-    if (num == LogLevel.WARN) {
-        console.log(customLog);
-    }
+function printRoles(object) {
+    return object;
 }
-///////
-printLogs("WARN", "message n");
+// console.log(printRoles({name:"ndjwbf",age:30}))
+function printGeneric(config) {
+    return config;
+}
+console.log(printGeneric({ name: "ndjwbf", age: 30 }));
+console.log(printGeneric({ name: "ndjwbf", age: 30, isAdmin: true }));
+var UserClass = /** @class */ (function () {
+    function UserClass(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    UserClass.prototype.printValues = function () {
+        console.log("name of user is " + this.name);
+    };
+    return UserClass;
+}());
+var newUser = new UserClass("numan arshad", 23);
+newUser.printValues();
+function identityInterface(config) {
+    return config;
+}
+console.log(identityInterface({ id1: "hello", id2: "hello2" }));
+///tuple generics 
+function tupelGenerics(arg1, arg2) {
+    return { id: arg1, id2: arg2 };
+}
+console.log(tupelGenerics(20, "hwnjbfe"));
+function identityServices(arg1, arg2) {
+    var identityServices = {
+        arg1: arg1,
+        arg2: arg2
+    };
+    return identityServices;
+}
+// console.log(identityServices<String,Number>({arg1:"jkn",arg2:2}))
+var Programmer = /** @class */ (function () {
+    function Programmer(lang) {
+        this.languageName = lang;
+    }
+    return Programmer;
+}());
+function lengIdentity(arg) {
+    console.log(arg.length);
+    return arg;
+}
+console.log(lengIdentity(["lme", "nfjkne"]));
+//isKey exist
+function getProperty(object, key) {
+    return object[key];
+}
+console.log(getProperty({ name: "kjken", age: 33 }, "name"));
+var difficultyLevel;
+(function (difficultyLevel) {
+    difficultyLevel[difficultyLevel["Easy"] = 0] = "Easy";
+    difficultyLevel[difficultyLevel["Medium"] = 1] = "Medium";
+    difficultyLevel[difficultyLevel["Hard"] = 2] = "Hard";
+})(difficultyLevel || (difficultyLevel = {}));
+var typescript_info = {
+    name: "typescript",
+    supersert: "js",
+    difficulty: difficultyLevel.Hard
+};
+var superset = getProperty(typescript_info, 'difficulty');
+console.log(superset);
