@@ -365,3 +365,58 @@ console.log(networkStates({state:"failed",code:46}))
   }
   ///////
   printLogs("WARN","message n")
+//   console.log(.LOG)
+
+
+
+
+///// generics//////
+function identity(arg:any):any{
+    return arg
+}
+console.log(identity('orj'))
+////generic in simple words deside type at run time and help to use reusable fucntion///
+function Identity<T>(arg:T):T{
+ return arg   
+}
+console.log(Identity<String>("hello"))
+console.log(Identity<Number>(20))
+
+const last=(arr:Array<any>)=>{
+    return arr[arr.length-1]
+}
+const l1=last([1,2,3,4])
+const l2=last(['a','v','f'])
+console.log(l1,l2)
+
+const lastGenerics=<T>(arr:Array<T>)=>{
+    return arr[0]
+}
+
+const fullName=(obj:{firstname:string,lastname:string})=>{
+return {...obj,fullname:obj.firstname+" "+obj.lastname}
+}
+const v4=fullName({firstname:"numan",lastname:"arshad"})
+console.table(v4)
+
+const makefullName=<T extends {firstname:string,lastname:string}>(obj:T)=>{
+    return {...obj,fullname:obj.firstname+" "+obj.lastname}
+    }
+const v5=makefullName({firstname:"numan",lastname:"arshad",age:23})
+    console.table(v5)
+
+interface Tab<T>{
+    id:string;
+    position:number;
+   data:T
+}
+
+type numberta=Tab<number>
+//equivalent  to ///
+// type numberTab={
+//     id:string;
+//     position:number;
+//    data:number
+// }
+type stringtab=Tab<string>
+

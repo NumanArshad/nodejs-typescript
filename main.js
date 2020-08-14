@@ -12,6 +12,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -293,3 +304,34 @@ function printLogs(customLog, message) {
 }
 ///////
 printLogs("WARN", "message n");
+//   console.log(.LOG)
+///// generics//////
+function identity(arg) {
+    return arg;
+}
+console.log(identity('orj'));
+////generic in simple words deside type at run time and help to use reusable fucntion///
+function Identity(arg) {
+    return arg;
+}
+console.log(Identity("hello"));
+console.log(Identity(20));
+var last = function (arr) {
+    return arr[arr.length - 1];
+};
+var l1 = last([1, 2, 3, 4]);
+var l2 = last(['a', 'v', 'f']);
+console.log(l1, l2);
+var lastGenerics = function (arr) {
+    return arr[0];
+};
+var fullName = function (obj) {
+    return __assign(__assign({}, obj), { fullname: obj.firstname + " " + obj.lastname });
+};
+var v4 = fullName({ firstname: "numan", lastname: "arshad" });
+console.table(v4);
+var makefullName = function (obj) {
+    return __assign(__assign({}, obj), { fullname: obj.firstname + " " + obj.lastname });
+};
+var v5 = makefullName({ firstname: "numan", lastname: "arshad", age: 23 });
+console.table(v5);
