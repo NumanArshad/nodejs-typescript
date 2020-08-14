@@ -240,84 +240,258 @@ printLabel(myObj);
 
 interface squareConfig {
     color?: string,
-    width?: number
+    width?: number,
+    [propName:string]:any
 }
-function createSquare(config: squareConfig): { color: string, width: number } {
-    let newSquare = { color: 'white', width: 25 }
-    newSquare.color = config.color ?? newSquare.color
-    newSquare.width = config.width ?? newSquare.width
-    return newSquare
+// function createSquare(config: squareConfig): { color: string, width: number } {
+//     let newSquare = { color: 'white', width: 25 }
+//     newSquare.color = config.color ?? newSquare.color
+//     newSquare.width = config.width ?? newSquare.width
+//     return newSquare
+// }
+function createSquare(config:squareConfig):{color:string;area:number}{
+
+    return {color:config.color || "red",area:config.width || 20}
 }
 
-let square = createSquare({ color: 'black' })
+let square = createSquare({ colour: 'black' })
 console.log(square)
 
 
 
-function buildName(firstname: string, ...restname: string[]) {
-    return firstname + " " + restname.join(",")
+// function buildName(firstname: string, ...restname: string[]) {
+//     return firstname + " " + restname.join(",")
+// }
+// console.log(buildName("Muhammad", "Numan", "Arshad"))
+
+// let build: (fst: string, ...rst: string[]) => string = buildName
+// console.log(build("Muhammad", "Numan", "Arshad"))
+// let myAdd: (baseValue: number, increment: number) => number = function (
+//     x: number,
+//     y: number
+// ): number {
+//     return x + y;
+// };
+// //let anotherBuild:(firstname:string,...rst:string[])=>string=firstname
+// console.log(myAdd(2, 5))
+
+
+// /////union and intersection (only comon function in union type)
+// interface Bird {
+//     fly(): void,
+//     layEggs(): void
+// }
+
+// interface Animal {
+//     fly(): void,
+//     swims(): void
+// }
+
+// declare function getSmalPet(): Bird | Animal
+// // let pet = getSmalPet()
+// // pet.fly()
+
+
+// type NetworkLoadingState={
+//     state: "loading"
+// }
+// type NetworkfailedState={
+//     state: "failed",
+//     code?: number
+// }
+// type NetworkSuccessState= {
+//     state: "success",
+//     response: {
+//         title: string,
+//         duration: number,
+//         summary: string
+//     }
+// }
+
+// type netwrokStat= NetworkLoadingState | NetworkfailedState | NetworkSuccessState
+
+// function networkStates(stat:netwrokStat):string{
+//    switch(stat.state){
+//        case "loading":
+//            return "Downloading";
+//        case "failed":
+//            console.log(stat.code ?? "notpassed")
+//            return "failed fetch response"
+//        case "success":
+//            return "fetch success"
+//    }
+    
+// }
+// console.log(networkStates({state:"failed",code:46}))
+//   /////////
+
+
+//   ///////////////////////////////////////intersection/////////
+//   interface ErrorHandling{
+//       success:boolean;
+//       errro?:{message:string}
+//   }
+//   interface ArtworkData{
+//       artworks:{title:string}[]
+//   }
+//   interface ArtisData{
+//       artist:{name:string}[]
+//   }
+//   type ArtisResponse=ArtisData & ErrorHandling
+//   const handleArtistResponse=(response:ArtisResponse)=>{
+//       if(response.errro){
+//           console.log(response.errro.message)
+//           return
+//       }
+//       console.log(response.artist)
+//   }
+
+
+//   handleArtistResponse({errro:{message:"good"},artist:[{name:"fsmkk"},{name:"fksnfkns"}]})
+
+
+
+//   ///////enum////////
+//   enum LogLevel{
+//       ERROR,
+//       WARN,
+//       LOG,
+//       DEBUG
+//   }
+//   //equivalne  to 
+//   type LogLevel2='ERROR' | 'LOG' | 'DEBUG' | 'WARN'
+//   //type LogLevel2=keyof typeof LogLevel
+//   function printLogs(customLog:LogLevel2,message:string){
+//     console.log("hahahha"+LogLevel[customLog])
+//     const num=LogLevel[customLog]
+//       if(num==LogLevel.WARN){
+//           console.log(customLog)
+//       }
+//   }
+//   ///////
+//   printLogs("WARN","message n")
+
+
+////generics// that allow to user to decide type at run time
+
+type User={
+name:string,
+age:number
 }
-console.log(buildName("Muhammad", "Numan", "Arshad"))
+type Admin={
+    name:string,
+    age:number,
+    isAdmin:boolean
+    }
+const user:User={
+    name:"numan",
+    age:22
+}
+const admin:Admin={
+    name:"numan",
+    age:22,
+    isAdmin:true
+}
+function printRoles(object:User):User{
+    return object
+}
+// console.log(printRoles({name:"ndjwbf",age:30}))
 
-let build: (fst: string, ...rst: string[]) => string = buildName
-console.log(build("Muhammad", "Numan", "Arshad"))
-let myAdd: (baseValue: number, increment: number) => number = function (
-    x: number,
-    y: number
-): number {
-    return x + y;
-};
-//let anotherBuild:(firstname:string,...rst:string[])=>string=firstname
-console.log(myAdd(2, 5))
+function printGeneric<T>(config:T):T{
+    return config
+}
+console.log(printGeneric<User>({name:"ndjwbf",age:30}))
+console.log(printGeneric<Admin>({name:"ndjwbf",age:30,isAdmin:true}))
 
+class UserClass<T,U>{
+    name:T;
+    age:U;
+    constructor(name:T,age:U){
+        this.name=name;
+        this.age=age
+    }
+    printValues():void{
+        console.log(`name of user is ${this.name}`)
+    }
 
-/////union and intersection (only comon function in union type)
-interface Bird {
-    fly(): void,
-    layEggs(): void
 }
 
-interface Animal {
-    fly(): void,
-    swims(): void
+let newUser=new UserClass<String,number>("numan arshad",23)
+newUser.printValues()
+
+interface myIdentities<V,W>{
+    id1:V,
+    id2:W
 }
 
-declare function getSmalPet(): Bird | Animal
-// let pet = getSmalPet()
-// pet.fly()
-
-
-type NetworkLoadingState={
-    state: "loading"
+function identityInterface(config:{id1:String,id2:String}):myIdentities<String,String>{
+    return config
 }
-type NetworkfailedState={
-    state: "failed",
-    code?: number
+console.log(identityInterface({id1:"hello",id2:"hello2"}))
+
+///tuple generics 
+function tupelGenerics<T,V>(arg1:T,arg2:V):{id:T,id2:V}{
+   return {id:arg1,id2:arg2}
 }
-type NetworkSuccessState= {
-    state: "success",
-    response: {
-        title: string,
-        duration: number,
-        summary: string
+console.log(tupelGenerics<number,string>(20,"hwnjbfe"))
+
+interface Identities<T,V>{
+    arg1:T,
+    arg2:V
+}
+function identityServices<T,V>(arg1:T,arg2:V):Identities<T,V>{
+let identityServices:Identities<T,V>={
+    arg1:arg1,
+    arg2:arg2
+}
+return identityServices
+}
+
+// console.log(identityServices<String,Number>({arg1:"jkn",arg2:2}))
+
+class Programmer<T>{
+    private languageName:string;
+    private languageInfo:T;
+    constructor(lang:string){
+        this.languageName=lang
     }
 }
 
-type netwrokStat= NetworkLoadingState | NetworkfailedState | NetworkSuccessState
-
-function networkStates(stat:netwrokStat):string{
-   switch(stat.state){
-       case "loading":
-           return "Downloading";
-       case "failed":
-           console.log(stat.code ?? "notpassed")
-           return "failed fetch response"
-       case "success":
-           return "fetch success"
-   }
-    
+interface Length{
+    length:number
 }
-console.log(networkStates({state:"failed",code:46}))
+function lengIdentity<T extends Length>(arg:T):T{
+    console.log(arg.length)
+    return arg
+}
+console.log(lengIdentity<string[]>(["lme","nfjkne"]))
+
+//isKey exist
+function getProperty<T,K extends keyof T>(object:T,key :K):T[K]{
+    return object[key]
+}
+console.log(getProperty({name:"kjken",age:33},"name"))
+
+enum difficultyLevel{
+    Easy,Medium,Hard
+}
+let typescript_info={
+    name:"typescript",
+    supersert:"js",
+    difficulty:difficultyLevel.Hard
+}
+let superset:number=getProperty(typescript_info,'difficulty')
+console.log(superset)
+
+class Programmer_1{
+    constructor(public fname:string,public lname:string){
+
+    }
+}
+function logProgrammer<T extends Programmer_1>(prog:T):void{
+    console.log(`programmer name is ${this.fname}`)
+}
+// console.log(networkStates({state:"failed",code:46}))
   /////////
 
 
@@ -419,4 +593,5 @@ type numberta=Tab<number>
 //    data:number
 // }
 type stringtab=Tab<string>
+
 
